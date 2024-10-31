@@ -17,7 +17,7 @@ def get_coordinates(city, key):
         return f"Возникла ошибка: {e}"
 
 
-def show_coordinates():
+def show_coordinates(event=None):
     city = entry.get()
     coordinates = get_coordinates(city, key)
     label.config(text=f'Координаты города {city}:\n {coordinates}')
@@ -28,9 +28,11 @@ key = 'df1c31b2072f453d9c74c8d1ffec8900'
 
 window = Tk()
 window.title('Координаты городов')
-window.geometry('200x100')
+window.geometry('250x100')
 entry = Entry()
 entry.pack()
+entry.focus_set()
+entry.bind('<Return>', show_coordinates)
 
 button = Button(text='Поиск координат', command=show_coordinates)
 button.pack()
