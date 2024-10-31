@@ -10,7 +10,9 @@ def get_coordinates(city, key):
             # Округляем до 2-х знаков после запятой
             lat = round(results[0]['geometry']['lat'], 2)
             lon = round(results[0]['geometry']['lng'], 2)
-            return f"Широта: {lat},\n Долгота: {lon}"
+            country = results[0]['components']['country']  # Берем эти параметры из json
+            region = results[0]['components']['state']
+            return f"Широта: {lat},\n Долгота: {lon},\n Страна: {country}, Регион: {region}"
         else:
             return 'Город не найден'
     except Exception as e:
@@ -25,10 +27,9 @@ def show_coordinates(event=None):
 
 key = 'df1c31b2072f453d9c74c8d1ffec8900'
 
-
 window = Tk()
 window.title('Координаты городов')
-window.geometry('250x100')
+window.geometry('300x150')
 entry = Entry()
 entry.pack()
 entry.focus_set()
