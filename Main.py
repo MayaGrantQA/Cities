@@ -11,10 +11,14 @@ def get_coordinates(city, key):
             lat = round(results[0]['geometry']['lat'], 2)
             lon = round(results[0]['geometry']['lng'], 2)
             country = results[0]['components']['country']  # Берем эти параметры из json
-            region = results[0]['components']['state']
-            return f"Широта: {lat},\n Долгота: {lon},\n Страна: {country}, Регион: {region}"
-        else:
-            return 'Город не найден'
+
+            if 'state' in results[0]['components']:
+                region = results[0]['components']['state']
+                return f"Широта: {lat},\n Долгота: {lon},\n Страна: {country}.\n Регион: {region}"
+            else:
+                return f"Широта: {lat},\n Долгота: {lon},\n Страна: {country}"
+
+        return 'Город не найден'
     except Exception as e:
         return f"Возникла ошибка: {e}"
 
